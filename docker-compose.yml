@@ -1,0 +1,23 @@
+version: '2'
+services:
+  db:
+    build: ./db
+    ports:
+    - "8080:8080"
+    - "28015:28015"
+  warcprox:
+    build: ./warcprox
+    volumes:
+    - "/warcs:/warcs"
+    ports:
+    - "8000:8000"
+  worker:
+    build: ./worker 
+    ports:
+    - "127.0.0.1:5900:5900"
+  pywb:
+    build: ./pywb
+    volumes:
+    - "/warcs:/warcs"
+    ports:
+    - "8880:8880"
