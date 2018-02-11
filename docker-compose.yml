@@ -13,6 +13,9 @@ services:
     - "8000:8000"
   worker:
     build: ./worker 
+    environment:
+    - BROZZLER_RETHINKDB_SERVERS=db
+    - BROZZLER_RETHINKDB_DB=brozzler
     ports:
     - "127.0.0.1:5900:5900"
   pywb:
@@ -21,3 +24,11 @@ services:
     - "/warcs:/warcs"
     ports:
     - "8880:8880"
+  dashboard:
+    build: ./dashboard
+    environment:
+    - BROZZLER_RETHINKDB_SERVERS=db
+    - BROZZLER_RETHINKDB_DB=brozzler
+    - WAYBACK_BASEURL=http://brozzler:8880/brozzler
+    ports:
+    - "8881:8881"

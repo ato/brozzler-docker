@@ -23,8 +23,8 @@ RUN echo '#!/bin/sh' > /bin/chrome-wrapper && \
   adduser -S brozzler
 RUN apk --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ add x11vnc
 USER brozzler
-ENV BROZZLER_RETHINKDB_SERVERS=db DISPLAY=:1
+ENV DISPLAY=:1
 CMD trap 'kill $(jobs -p)' SIGINT SIGTERM EXIT && \
   Xvfb :1 & \
   x11vnc -nopw -shared -forever -ncache 10 -ncache_cr -quiet & \
-  brozzler-worker -e chrome-wrapper --warcprox-auto --max-browsers=4
+  brozzler-worker -e chrome-wrapper --warcprox-auto --max-browsers=1
